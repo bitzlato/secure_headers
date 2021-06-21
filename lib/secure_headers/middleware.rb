@@ -32,6 +32,9 @@ module SecureHeaders
 
     # disable Secure cookies for non-https requests
     def override_secure(env, config = {})
+      # Request can be secured by gateway
+   
+      return config if ENV['DISABLE_OVERRIDE_SECURE']
       if scheme(env) != "https" && config != OPT_OUT
         config[:secure] = OPT_OUT
       end
